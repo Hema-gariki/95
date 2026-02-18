@@ -33,7 +33,7 @@
       echo "Cookie '" . $cookie_name . "' is set!<br>";
       echo "Value is: " . $_COOKIE[$cookie_name];
     }
-    include "cookie_input.html";
+    include "cookie_index.html";
   ?>
   </div>
   </body>
