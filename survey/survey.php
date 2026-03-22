@@ -69,22 +69,13 @@ while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
         continue;
     }
 
-    $name = trim($row[0]);
-    $email = trim($row[1]);
-    $password = trim($row[2]);
-
-    // Hash password
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-    // Insert into database
-    $stmt = mysqli_prepare($con, "INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-    mysqli_stmt_bind_param($stmt, "sss", $name, $email, $hashed_password);
-    mysqli_stmt_execute($stmt);
 
     $data[] = [
-        "name" => $name,
-        "email" => $email,
-        "password" => $hashed_password
+    "Question" => trim($row[0]),
+    "CorrectAnswer" => trim($row[1]),
+    "Wrong1" => trim($row[2]),
+    "Wrong2" => trim($row[3]),
+    "Wrong3" => trim($row[4])
     ];
 }
 
