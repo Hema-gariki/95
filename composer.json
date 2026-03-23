@@ -1,6 +1,31 @@
 {
+    "name": "yourname/slim-crud-api",
+    "description": "Product CRUD REST API built with Slim Framework 4",
+    "type": "project",
     "require": {
-        "slim/slim": "^4.15",
-        "slim/psr7": "^1.8"
+        "php": "^8.1",
+        "slim/slim": "^4.12",
+        "slim/psr7": "^1.6",
+        "php-di/php-di": "^7.0",
+        "illuminate/database": "^10.0",
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "start": "php -S localhost:8080 -t public",
+        "test": "phpunit"
     }
 }
