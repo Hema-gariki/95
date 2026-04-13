@@ -1,0 +1,8 @@
+/vendor
+.env
+database/surveyflow.sqlite
+storage/uploads/*
+!storage/uploads/.gitkeep
+*.log
+.idea
+.vscode

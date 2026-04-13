@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You — {{ survey.title }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{fontFamily:{sans:['DM Sans','sans-serif']}}}}</script>
+    <style>
+        body{font-family:'DM Sans',sans-serif;}
+        @keyframes pop{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
+        .pop{animation:pop .45s cubic-bezier(.34,1.56,.64,1) forwards;}
+        @keyframes bar{from{width:0}}
+        .score-bar{animation:bar .9s .4s ease-out forwards;}
+    </style>
+</head>
+<body class="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+
+{% set pct = (score is not null and total > 0) ? (score / total * 100)|round : 0 %}
+{% set emoji   = pct >= 80 ? '🎉' : (pct >= 60 ? '👍' : (pct >= 40 ? '💪' : '📚')) %}
+{% set message = pct >= 80 ? 'Outstanding!' : (pct >= 60 ? 'Well done!' : (pct >= 40 ? 'Good effort!' : 'Keep practising!')) %}
+{% set color   = pct >= 80 ? '#10b981' : (pct >= 60 ? '#6366f1' : (pct >= 40 ? '#f59e0b' : '#f87171')) %}
+{% set barclass= pct >= 80 ? 'bg-emerald-500' : (pct >= 60 ? 'bg-indigo-500' : (pct >= 40 ? 'bg-amber-500' : 'bg-red-400')) %}
+
+<div class="w-full max-w-md">
+    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm p-10 text-center">
+
+        <div class="text-6xl pop mb-5">{{ emoji }}</div>
+        <h1 class="text-2xl font-semibold text-slate-900">{{ message }}</h1>
+        <p class="text-slate-500 text-sm mt-1.5 mb-8">{{ survey.title }}</p>
+
+        {% if score is not null %}
+        {# Circular score indicator #}
+        <div class="relative w-32 h-32 mx-auto mb-6">
+            <svg viewBox="0 0 120 120" class="w-full h-full -rotate-90">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="#f1f5f9" stroke-width="12"/>
+                <circle cx="60" cy="60" r="50" fill="none"
+                        stroke="{{ color }}"
+                        stroke-width="12"
+                        stroke-linecap="round"
+                        stroke-dasharray="{{ (314 * pct / 100)|round }} 314"/>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <span class="text-3xl font-bold text-slate-900">{{ pct }}%</span>
+                <span class="text-xs text-slate-400 mt-0.5">score</span>
+            </div>
+        </div>
+
+        <p class="text-lg font-semibold text-slate-900 mb-6">{{ score }} / {{ total }} correct</p>
+
+        {# Score bar #}
+        <div class="w-full bg-slate-100 rounded-full h-2 mb-8 overflow-hidden">
+            <div class="{{ barclass }} h-2 rounded-full score-bar" style="width:{{ pct }}%"></div>
+        </div>
+        {% endif %}
+
+        <p class="text-xs text-slate-400 mb-2">Your responses were recorded anonymously.</p>
+        <p class="text-sm font-medium text-slate-600">You may close this tab.</p>
+    </div>
+</div>
+
+</body>
+</html>

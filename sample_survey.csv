@@ -1,0 +1,5 @@
+Question,CorrectAnswer,WrongOption1,WrongOption2,WrongOption3
+CPU stands for Central Processing Unit.,TRUE,FALSE,,
+RAM is non-volatile memory.,FALSE,TRUE,,
+Which data structure follows LIFO?,Stack,Queue,Array,Linked List
+HTML is used for structuring web pages.,TRUE,FALSE,,

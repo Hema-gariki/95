@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SurveyFlow{% endblock %} — Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config={theme:{extend:{fontFamily:{sans:['DM Sans','sans-serif'],mono:['DM Mono','monospace']}}}}</script>
+    <style>body{font-family:'DM Sans',sans-serif;}</style>
+</head>
+<body class="bg-zinc-50 text-zinc-800 min-h-screen">
+
+<header class="bg-white border-b border-zinc-200 sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
+        <a href="/admin/dashboard" class="flex items-center gap-2 font-semibold text-zinc-900">
+            <span class="w-7 h-7 rounded-lg bg-zinc-900 flex items-center justify-center text-white text-xs font-bold">S</span>
+            SurveyFlow
+        </a>
+        <nav class="flex items-center gap-6">
+            <a href="/admin/dashboard" class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">Dashboard</a>
+            <a href="/admin/upload"    class="text-sm text-zinc-500 hover:text-zinc-900 transition-colors">Upload CSV</a>
+            <form method="POST" action="/admin/logout" style="display:inline">
+                <button class="text-xs text-zinc-400 hover:text-zinc-700 border border-zinc-200 rounded-md px-3 py-1.5 transition-colors">Sign out</button>
+            </form>
+        </nav>
+    </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-10">
+
+    {% if flash.success is defined %}
+        <div class="mb-6 flex gap-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl px-4 py-3 text-sm">
+            <span>✓</span><span>{{ flash.success }}</span>
+        </div>
+    {% endif %}
+
+    {% if flash.error is defined %}
+        <div class="mb-6 flex gap-3 bg-red-50 border border-red-200 text-red-800 rounded-xl px-4 py-3 text-sm">
+            <span>⚠</span><span>{{ flash.error }}</span>
+        </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+</main>
+
+<footer class="border-t border-zinc-200 mt-16">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between">
+        <span class="text-xs text-zinc-400">SurveyFlow — Slim 4</span>
+        <span class="text-xs text-zinc-400">Anonymous Survey Platform</span>
+    </div>
+</footer>
+
+</body>
+</html>
